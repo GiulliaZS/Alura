@@ -1,0 +1,66 @@
+let  listaDeNumerosSorteados  =  [ ] ;
+deixe  numeroLimite  =  10 ;
+deixe  numeroSecreto  =  gerarNumeroAleatorio ( ) ;
+deixe  tentativas  =  1 ;
+
+function  exibirTextoNaTela ( tag ,  texto )  {
+    deixe  campo  =  document . querySelector ( tag ) ;
+    campo . innerHTML  =  texto ;
+    responsiveVoice . speak ( texto ,  'Mulher portuguesa brasileira' ,  { rate : 1.2 } ) ;
+}
+
+function  exibirMensagemInicial ( )  {
+    exibirTextoNaTela ( 'h1' ,  'Jogo do número secreto' ) ;
+    exibirTextoNaTela ( 'p' ,  'Escolha um número entre 1 e 10' ) ;
+}
+
+exibirMensagemInicial ( ) ;
+
+função  verificarChute ( )  {
+    deixe  chute  =  document . querySelector ( 'entrada' ) . valor ;
+
+    se  ( chute  ==  numeroSecreto )  {
+        exibirTextoNaTela ( 'h1' ,  'Acertou!' ) ;
+        let  palavraTentativa  =  esforço  >  1 ? 'tentativa' : 'tentativa' ;
+        let  mensagemTentativas  =  `Você descobriu o número secreto com ${ tentativa }  ${ palavraTentativa } !` ;
+        exibirTextoNaTela ( 'p' ,  mensagemTentativas ) ;
+        documento . getElementById ( 'reiniciar' ) . removeAttribute ( 'desabilitado' ) ;
+    }  outro  {
+        se  ( chute  >  numeroSecreto )  {
+            exibirTextoNaTela ( 'p' ,  'O número secreto é menor' ) ;
+        }  outro  {
+            exibirTextoNaTela ( 'p' ,  'O número secreto é maior' ) ;
+        }
+        tentativas ++ ;
+        LimparCampo ( ) ;
+    }
+}
+
+função  gerarNumeroAleatorio ( )  {
+    deixe  numeroEscolhido  =  parseInt ( Math . random ( )  *  numeroLimite  +  1 ) ;
+    deixe  quantidadeDeElementosNaLista  =  listaDeNumerosSorteados . comprimento ;
+
+    if  ( quantidadeDeElementosNaLista  ==  numeroLimite )  {
+        listaDeNumerosSorteados  =  [ ] ;
+    }
+    if  ( listaDeNumerosSorteados . include ( numeroEscolhido ) )  {
+        retornar  gerarNumeroAleatorio ( ) ;
+    }  outro  {
+        listaDeNúmerosSorteados . push ( númeroEscolhido ) ;
+        console . log ( listaDeNúmerosSorteados )
+        retornar  numeroEscolhido ;
+    }
+}
+
+função  limparCampo ( )  {
+    rampa  =  documento . querySelector ( 'entrada' ) ;
+    rampa . valor  =  '' ;
+}
+
+função  reiniciarJogo ( )  {
+    numeroSecreto  =  gerarNumeroAleatorio ( ) ;
+    LimparCampo ( ) ;
+    tentativas  =  1 ;
+    exibirMensagemInicial ( ) ;
+    documento . getElementById ( 'reiniciar' ) . setAttribute ( 'desabilitado' ,  verdadeiro )
+}
